@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
+import AudioFileIcon from "@mui/icons-material/AudioFile";
+import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import KeyIcon from "@mui/icons-material/Key";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
+import SendIcon from "@mui/icons-material/Send";
 import "./App.css";
-
-const apiKey = process.env.ELEVENLABS_API_KEY ?? "no key found";
+import { getVoices, textToSpeech, textToSpeechStream } from "./voice-api";
 
 function App() {
   const [textInput, setTextInput] = useState<string>("");
-
-  const getVoices = async () => {
-    console.log("apiKey: ", apiKey);
-
-    const options = {
-      method: "GET",
-      headers: { "xi-api-key": apiKey },
-    };
-
-    fetch("https://api.elevenlabs.io/v1/voices", options)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
-  };
 
   return (
     <div className="App">
@@ -61,16 +51,40 @@ function App() {
         </Box>
         <Button
           variant="contained"
-          startIcon={<SendIcon />}
+          startIcon={<PlayArrowIcon />}
           onClick={() => {
             alert(`Text Input: ${textInput}`);
+            textToSpeech("eGBjFzfEhvOZOwtVD6wL", textInput);
           }}
         >
-          Submit
+          Preview
         </Button>
         <Button
           variant="contained"
-          startIcon={<SendIcon />}
+          startIcon={<GraphicEqIcon />}
+          onClick={() => {
+            textToSpeechStream();
+          }}
+        >
+          Stream
+        </Button>
+
+        <Button
+          variant="contained"
+          startIcon={<KeyIcon />}
+          onClick={() => {
+            console.log("process", process.env);
+            console.log(
+              "apiKey: ",
+              process.env.REACT_APP_API_KEY ?? "no key found"
+            );
+          }}
+        >
+          Check Key
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<RecordVoiceOverIcon />}
           onClick={() => {
             getVoices();
           }}
