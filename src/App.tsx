@@ -13,7 +13,7 @@ function App() {
           <code>hello world</code>
         </p>
         <p>
-          <code>key: {apiKey}</code>
+          <code>🔑: {apiKey}</code>
         </p>
       </header>
     </div>
