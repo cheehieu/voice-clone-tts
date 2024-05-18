@@ -82,7 +82,7 @@ function App() {
             console.log("process", process.env);
             console.log(
               "apiKey: ",
-              process.env.REACT_APP_API_KEY ?? "no key found"
+              process.env.REACT_APP_ELEVENLABS_API_KEY_1 ?? "no key found"
             );
           }}
         >
