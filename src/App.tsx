@@ -5,10 +5,24 @@ import SendIcon from "@mui/icons-material/Send";
 import TextField from "@mui/material/TextField";
 import "./App.css";
 
-const apiKey = process.env.ELEVEN_LABS_API_KEY ?? "no key found";
+const apiKey = process.env.ELEVENLABS_API_KEY ?? "no key found";
 
 function App() {
   const [textInput, setTextInput] = useState<string>("");
+
+  const getVoices = async () => {
+    console.log("apiKey: ", apiKey);
+
+    const options = {
+      method: "GET",
+      headers: { "xi-api-key": apiKey },
+    };
+
+    fetch("https://api.elevenlabs.io/v1/voices", options)
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="App">
@@ -53,6 +67,15 @@ function App() {
           }}
         >
           Submit
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<SendIcon />}
+          onClick={() => {
+            getVoices();
+          }}
+        >
+          Get Voices
         </Button>
       </header>
     </div>
