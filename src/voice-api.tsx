@@ -1,4 +1,4 @@
-const apiKey = process.env.ELEVENLABS_API_KEY ?? "no key found";
+const apiKey = process.env.REACT_APP_API_KEY ?? "no key found";
 
 const audioContext = new AudioContext();
 

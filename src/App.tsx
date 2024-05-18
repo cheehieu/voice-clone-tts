@@ -7,9 +7,13 @@ import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import KeyIcon from "@mui/icons-material/Key";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
-import SendIcon from "@mui/icons-material/Send";
 import "./App.css";
-import { getVoices, textToSpeech, textToSpeechStream } from "./voice-api";
+import {
+  getGeneratedItems,
+  getVoices,
+  textToSpeech,
+  textToSpeechStream,
+} from "./voice-api";
 
 function App() {
   const [textInput, setTextInput] = useState<string>("");
@@ -49,6 +53,7 @@ function App() {
             />
           </div>
         </Box>
+
         <Button
           variant="contained"
           startIcon={<PlayArrowIcon />}
@@ -59,6 +64,7 @@ function App() {
         >
           Preview
         </Button>
+
         <Button
           variant="contained"
           startIcon={<GraphicEqIcon />}
@@ -82,6 +88,7 @@ function App() {
         >
           Check Key
         </Button>
+
         <Button
           variant="contained"
           startIcon={<RecordVoiceOverIcon />}
@@ -90,6 +97,16 @@ function App() {
           }}
         >
           Get Voices
+        </Button>
+
+        <Button
+          variant="contained"
+          startIcon={<AudioFileIcon />}
+          onClick={() => {
+            getVoices();
+          }}
+        >
+          Download Audio File
         </Button>
       </header>
     </div>
