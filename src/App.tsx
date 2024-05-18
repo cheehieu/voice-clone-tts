@@ -103,7 +103,7 @@ function App() {
           variant="contained"
           startIcon={<AudioFileIcon />}
           onClick={() => {
-            getVoices();
+            getGeneratedItems();
           }}
         >
           Download Audio File
