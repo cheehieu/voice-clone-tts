@@ -19,6 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: View the secrets context
+        shell: bash
+        run: echo "$SECRETS_CONTEXT"
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+
       - name: Cache node modules
         id: cache-npm
         uses: actions/cache@v4
