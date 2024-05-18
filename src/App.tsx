@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
-  const apiKey = process.env.ELEVEN_LABS_API_KEY;
+  const apiKey = process.env.ELEVEN_LABS_API_KEY ?? "no key found";
 
   return (
     <div className="App">
