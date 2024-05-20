@@ -15,8 +15,17 @@ import {
   textToSpeechStream,
 } from "./voice-api";
 
+// Add separate textfield for API key
+
 function App() {
   const [textInput, setTextInput] = useState<string>("");
+  const [elevenLabsApiKey, setElevenLabsApiKey] = useState<string>("");
+
+  const apiKey = elevenLabsApiKey
+    ? elevenLabsApiKey
+    : process.env.REACT_APP_ELEVENLABS_API_KEY_1
+    ? process.env.REACT_APP_ELEVENLABS_API_KEY_1
+    : "no key found";
 
   return (
     <div className="App">
@@ -33,6 +42,20 @@ function App() {
           autoComplete="off"
         >
           <div>
+            <TextField
+              sx={{
+                "& .MuiInputBase-root": {
+                  color: "white",
+                },
+              }}
+              focused
+              label="API Key"
+              placeholder="Eleven Labs API Key"
+              value={elevenLabsApiKey}
+              onChange={(event) => {
+                setElevenLabsApiKey(event.target.value);
+              }}
+            />
             <TextField
               sx={{
                 "& .MuiInputBase-root": {
@@ -59,7 +82,7 @@ function App() {
           startIcon={<PlayArrowIcon />}
           onClick={() => {
             alert(`Text Input: ${textInput}`);
-            textToSpeech("eGBjFzfEhvOZOwtVD6wL", textInput);
+            textToSpeech(apiKey, "eGBjFzfEhvOZOwtVD6wL", textInput);
           }}
         >
           Preview
@@ -69,7 +92,7 @@ function App() {
           variant="contained"
           startIcon={<GraphicEqIcon />}
           onClick={() => {
-            textToSpeechStream();
+            textToSpeechStream(apiKey);
           }}
         >
           Stream
@@ -80,10 +103,7 @@ function App() {
           startIcon={<KeyIcon />}
           onClick={() => {
             console.log("process", process.env);
-            console.log(
-              "apiKey: ",
-              process.env.REACT_APP_ELEVENLABS_API_KEY_1 ?? "no key found"
-            );
+            console.log("apiKey: ", apiKey);
           }}
         >
           Check Key
@@ -93,7 +113,7 @@ function App() {
           variant="contained"
           startIcon={<RecordVoiceOverIcon />}
           onClick={() => {
-            getVoices();
+            getVoices(apiKey);
           }}
         >
           Get Voices
@@ -103,7 +123,7 @@ function App() {
           variant="contained"
           startIcon={<AudioFileIcon />}
           onClick={() => {
-            getGeneratedItems();
+            getGeneratedItems(apiKey);
           }}
         >
           Download Audio File

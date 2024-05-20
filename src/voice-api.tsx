@@ -1,5 +1,3 @@
-const apiKey = process.env.REACT_APP_ELEVENLABS_API_KEY_0 ?? "no key found";
-
 const audioContext = new AudioContext();
 
 /**
@@ -14,6 +12,7 @@ type VoiceSettings = {
 };
 
 export const textToSpeech = (
+  apiKey: string,
   voice_id: string,
   input_text: string,
   model_id: string = "eleven_multilingual_v2",
@@ -47,7 +46,7 @@ export const textToSpeech = (
     .catch((err) => console.error(err));
 };
 
-export const textToSpeechStream = () => {
+export const textToSpeechStream = (apiKey: string) => {
   const options = {
     method: "POST",
     headers: {
@@ -79,7 +78,7 @@ export const textToSpeechStream = () => {
  * VOICES
  * {@link https://elevenlabs.io/docs/api-reference/get-voices}
  */
-export const getVoices = () => {
+export const getVoices = (apiKey: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -91,7 +90,7 @@ export const getVoices = () => {
     .catch((err) => console.error(err));
 };
 
-export const getDefaultVoiceSettings = () => {
+export const getDefaultVoiceSettings = (apiKey: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -103,7 +102,7 @@ export const getDefaultVoiceSettings = () => {
     .catch((err) => console.error(err));
 };
 
-export const getVoiceSettings = (voice_id: string) => {
+export const getVoiceSettings = (apiKey: string, voice_id: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -115,7 +114,7 @@ export const getVoiceSettings = (voice_id: string) => {
     .catch((err) => console.error(err));
 };
 
-export const getVoiceMetadata = (voice_id: string) => {
+export const getVoiceMetadata = (apiKey: string, voice_id: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -132,7 +131,7 @@ export const getVoiceMetadata = (voice_id: string) => {
  * {@link https://elevenlabs.io/docs/api-reference/get-generated-items}
  */
 
-export const getGeneratedItems = () => {
+export const getGeneratedItems = (apiKey: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -144,7 +143,7 @@ export const getGeneratedItems = () => {
     .catch((err) => console.error(err));
 };
 
-export const getHistoryItemById = (history_item_id: string) => {
+export const getHistoryItemById = (apiKey: string, history_item_id: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -156,7 +155,7 @@ export const getHistoryItemById = (history_item_id: string) => {
     .catch((err) => console.error(err));
 };
 
-export const deleteHistoryItem = (history_item_id: string) => {
+export const deleteHistoryItem = (apiKey: string, history_item_id: string) => {
   const options = {
     method: "DELETE",
     headers: { "xi-api-key": apiKey },
@@ -168,7 +167,10 @@ export const deleteHistoryItem = (history_item_id: string) => {
     .catch((err) => console.error(err));
 };
 
-export const getAudioFromHistoryItem = (history_item_id: string) => {
+export const getAudioFromHistoryItem = (
+  apiKey: string,
+  history_item_id: string
+) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
@@ -183,7 +185,10 @@ export const getAudioFromHistoryItem = (history_item_id: string) => {
     .catch((err) => console.error(err));
 };
 
-export const downloadHistoryItems = (history_item_ids: string[]) => {
+export const downloadHistoryItems = (
+  apiKey: string,
+  history_item_ids: string[]
+) => {
   const options = {
     method: "POST",
     headers: { "xi-api-key": "123", "Content-Type": "application/json" },
@@ -201,7 +206,7 @@ export const downloadHistoryItems = (history_item_ids: string[]) => {
  * {@link https://elevenlabs.io/docs/api-reference/get-user-info}
  */
 
-export const getUserInfo = () => {
+export const getUserInfo = (apiKey: string) => {
   const options = { method: "GET", headers: { "xi-api-key": apiKey } };
 
   fetch("https://api.elevenlabs.io/v1/user", options)
@@ -215,7 +220,7 @@ export const getUserInfo = () => {
  * {@link https://elevenlabs.io/docs/api-reference/get-models}
  */
 
-export const getModels = () => {
+export const getModels = (apiKey: string) => {
   const options = {
     method: "GET",
     headers: { "xi-api-key": apiKey },
