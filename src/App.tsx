@@ -23,8 +23,8 @@ function App() {
 
   const apiKey = elevenLabsApiKey
     ? elevenLabsApiKey
-    : process.env.REACT_APP_ELEVENLABS_API_KEY_1
-    ? process.env.REACT_APP_ELEVENLABS_API_KEY_1
+    : process.env.REACT_APP_ELEVENLABS_API_KEY_FREE
+    ? process.env.REACT_APP_ELEVENLABS_API_KEY_FREE
     : "no key found";
 
   return (

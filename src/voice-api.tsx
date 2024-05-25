@@ -1,4 +1,4 @@
-const audioContext = new AudioContext();
+const audioContext = new AudioContext(); // The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page
 
 /**
  * TEXT TO SPEECH
