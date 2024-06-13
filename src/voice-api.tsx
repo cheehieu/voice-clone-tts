@@ -46,18 +46,28 @@ export const textToSpeech = (
     .catch((err) => console.error(err));
 };
 
-export const textToSpeechStream = (apiKey: string) => {
+export const textToSpeechStream = (
+  apiKey: string,
+  voice_id: string,
+  input_text: string,
+  model_id: string = "eleven_turbo_v2",
+  voice_settings: VoiceSettings = {
+    stability: 0.5,
+    similarity_boost: 0.75,
+    style: 0,
+    use_speaker_boost: true,
+  }
+) => {
+  const { stability, similarity_boost, style, use_speaker_boost } =
+    voice_settings;
   const options = {
     method: "POST",
-    headers: {
-      "xi-api-key": apiKey,
-      "Content-Type": "application/json",
-    },
-    body: '{"text":"hey there, this is mack","voice_settings":{"stability":0.5,"similarity_boost":0.75}}',
+    headers: { "xi-api-key": apiKey, "Content-Type": "application/json" },
+    body: `{"text":"${input_text}","model_id":"${model_id}","voice_settings":{"stability":${stability},"similarity_boost":${similarity_boost},"style":${style},"use_speaker_boost":${use_speaker_boost}}}`,
   };
 
   fetch(
-    "https://api.elevenlabs.io/v1/text-to-speech/eGBjFzfEhvOZOwtVD6wL/stream",
+    `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}/stream`,
     options
   )
     // .then((response) => console.log(response))

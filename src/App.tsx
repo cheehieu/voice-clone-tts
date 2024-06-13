@@ -10,22 +10,23 @@ import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import "./App.css";
 import {
   getGeneratedItems,
+  getModels,
   getVoices,
   textToSpeech,
   textToSpeechStream,
 } from "./voice-api";
 
-// Add separate textfield for API key
+// Add voice select
+// Add voice settings
+// Add history view with playback and delete
 
 function App() {
   const [textInput, setTextInput] = useState<string>("");
-  const [elevenLabsApiKey, setElevenLabsApiKey] = useState<string>("");
+  const [elevenLabsApiKey, setElevenLabsApiKey] = useState<string>(
+    process.env.REACT_APP_ELEVENLABS_API_KEY_FREE ?? ""
+  );
 
-  const apiKey = elevenLabsApiKey
-    ? elevenLabsApiKey
-    : process.env.REACT_APP_ELEVENLABS_API_KEY_FREE
-    ? process.env.REACT_APP_ELEVENLABS_API_KEY_FREE
-    : "no key found";
+  const apiKey = elevenLabsApiKey;
 
   return (
     <div className="App">
@@ -36,7 +37,7 @@ function App() {
         <Box
           component="form"
           sx={{
-            "& .MuiTextField-root": { m: 5, width: "25ch" },
+            "& .MuiTextField-root": { m: 5, width: "40ch" },
           }}
           noValidate
           autoComplete="off"
@@ -50,12 +51,14 @@ function App() {
               }}
               focused
               label="API Key"
-              placeholder="Eleven Labs API Key"
+              placeholder="Optional: Use your Eleven Labs API key"
               value={elevenLabsApiKey}
               onChange={(event) => {
                 setElevenLabsApiKey(event.target.value);
               }}
             />
+          </div>
+          <div>
             <TextField
               sx={{
                 "& .MuiInputBase-root": {
@@ -64,6 +67,7 @@ function App() {
               }}
               color="info"
               focused
+              required
               label="Text Input"
               multiline
               placeholder="Enter text to convert to speech"
@@ -82,7 +86,7 @@ function App() {
           startIcon={<PlayArrowIcon />}
           onClick={() => {
             alert(`Text Input: ${textInput}`);
-            textToSpeech(apiKey, "eGBjFzfEhvOZOwtVD6wL", textInput);
+            textToSpeech(apiKey, "ZQe5CZNOzWyzPSCn5a3c", textInput);
           }}
         >
           Preview
@@ -92,21 +96,10 @@ function App() {
           variant="contained"
           startIcon={<GraphicEqIcon />}
           onClick={() => {
-            textToSpeechStream(apiKey);
+            textToSpeechStream(apiKey, "ZQe5CZNOzWyzPSCn5a3c", textInput);
           }}
         >
           Stream
-        </Button>
-
-        <Button
-          variant="contained"
-          startIcon={<KeyIcon />}
-          onClick={() => {
-            console.log("process", process.env);
-            console.log("apiKey: ", apiKey);
-          }}
-        >
-          Check Key
         </Button>
 
         <Button
@@ -126,7 +119,28 @@ function App() {
             getGeneratedItems(apiKey);
           }}
         >
-          Download Audio File
+          Get Generated Items
+        </Button>
+
+        <Button
+          variant="contained"
+          startIcon={<AudioFileIcon />}
+          onClick={() => {
+            getModels(apiKey);
+          }}
+        >
+          Get Models
+        </Button>
+
+        <Button
+          variant="contained"
+          startIcon={<KeyIcon />}
+          onClick={() => {
+            console.log("process", process.env);
+            console.log("apiKey: ", apiKey);
+          }}
+        >
+          Check Key
         </Button>
       </header>
     </div>

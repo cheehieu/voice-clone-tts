@@ -15,8 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      REACT_APP_ELEVENLABS_API_KEY_0: ${{ secrets.REACT_APP_ELEVENLABS_API_KEY_0 }}
-      REACT_APP_ELEVENLABS_API_KEY_1: ${{ secrets.REACT_APP_ELEVENLABS_API_KEY_1 }}
       REACT_APP_ELEVENLABS_API_KEY_FREE: ${{ secrets.REACT_APP_ELEVENLABS_API_KEY_FREE }}
     steps:
       - uses: actions/checkout@v4
